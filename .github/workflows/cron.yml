@@ -1,0 +1,14 @@
+name: Sync Booqable to MailerLite
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'  # Runs every 5 minutes
+  workflow_dispatch:  # Allows manual triggering
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sync customers
+        run: |
+          curl -X GET "https://pb-booqable-33hxkm03l-justus-bruns-projects.vercel.app/api/webhook"
