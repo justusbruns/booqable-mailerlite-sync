@@ -8,7 +8,21 @@ on:
 jobs:
   sync:
     runs-on: ubuntu-latest
+    env:
+      MAILERLITE_API_KEY: ${{ secrets.MAILERLITE_API_KEY }}
+      BOOQABLE_API_KEY: ${{ secrets.BOOQABLE_API_KEY }}
+      BOOQABLE_COMPANY: ${{ secrets.BOOQABLE_COMPANY }}
     steps:
       - name: Sync customers
         run: |
-          curl -X GET "https://pb-booqable-33hxkm03l-justus-bruns-projects.vercel.app/api/webhook"
+          response=$(curl -s -w "\n%{http_code}" -X GET "https://pb-booqable-33hxkm03l-justus-bruns-projects.vercel.app/api/webhook")
+          status_code=$(echo "$response" | tail -n1)
+          body=$(echo "$response" | sed '$d')
+          
+          if [ "$status_code" -ne 200 ]; then
+            echo "Error: Received status code $status_code"
+            echo "Response: $body"
+            exit 1
+          fi
+          
+          echo "Success! Response: $body"
