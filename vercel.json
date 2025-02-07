@@ -12,7 +12,15 @@
       "dest": "/api/$1",
       "headers": {
         "Access-Control-Allow-Origin": "*"
-      }
+      },
+      "continue": true
     }
-  ]
+  ],
+  "functions": {
+    "api/*.js": {
+      "memory": 1024,
+      "maxDuration": 10
+    }
+  },
+  "public": true
 }
