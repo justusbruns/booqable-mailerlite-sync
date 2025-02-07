@@ -15,7 +15,7 @@ jobs:
     steps:
       - name: Sync customers
         run: |
-          response=$(curl -s -w "\n%{http_code}" -X GET "https://pb-booqable-33hxkm03l-justus-bruns-projects.vercel.app/api/webhook")
+          response=$(curl -s -w "\n%{http_code}" -X GET "https://pb-booqable-ogdgpn44c-justus-bruns-projects.vercel.app/api/webhook")
           status_code=$(echo "$response" | tail -n1)
           body=$(echo "$response" | sed '$d')
           
